@@ -4,48 +4,49 @@ import RepoListItem from "./RepoListItem";
 
 interface RepoListProps {
   names: string[];
-  onChangePage: () => void;
-  onChangeRows: () => void;
+  total: number;
+  page: number;
+  rows: number;
+  onChangePage: (page: number) => void;
+  onChangeRows: (rows: number) => void;
 }
 
 export default function RepoList({
   names,
+  total,
+  page,
+  rows,
   onChangePage,
   onChangeRows,
 }: RepoListProps) {
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
-    setPage(newPage);
-    onChangePage();
+    onChangePage(newPage);
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-    onChangeRows();
+    const rows = parseInt(event.target.value, 10);
+    onChangeRows(rows);
   };
 
   return (
-    <Paper sx={{ p: 3 }}>
+    <>
       <List>
         {names.map((name) => (
           <RepoListItem name={name} />
         ))}
       </List>
       <TablePagination
-        count={names.length}
+        count={total}
         page={page}
         onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={rows}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </>
   );
 }

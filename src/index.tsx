@@ -6,8 +6,33 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { Root } from "./components/layout";
 import { UserPage, SearchPage, RepoPage } from "./pages";
+
+const httpLink = createHttpLink({
+  uri: "https://api.github.com/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 const router = createBrowserRouter([
   {
@@ -39,8 +64,8 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <>
+  <ApolloProvider client={client}>
     <CssBaseline />
     <RouterProvider router={router} />
-  </>
+  </ApolloProvider>
 );
