@@ -2,7 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import Copyright from "./Copyright";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import { Outlet } from "react-router-dom";
@@ -32,7 +31,6 @@ export default function Layout() {
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Outlet />
-          <Copyright sx={{ pt: 4 }} />
         </Container>
       </Box>
     </Box>
