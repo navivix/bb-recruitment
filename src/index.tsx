@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import { Root } from "./components/layout";
 import { UserPage, SearchPage, RepoPage } from "./pages";
 
@@ -12,6 +16,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <Navigate to="/search" />,
+      },
+      {
+        path: "search",
         element: <SearchPage />,
       },
       {
