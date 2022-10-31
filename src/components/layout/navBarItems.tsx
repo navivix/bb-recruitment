@@ -3,11 +3,7 @@ import {
   Search as SearchIcon,
   Person as PersonIcon,
 } from "@mui/icons-material";
-import { Link as RouterLink } from "react-router-dom";
-
-const Link = (props: any) => (
-  <RouterLink style={{ textDecoration: "none", color: "black" }} {...props} />
-);
+import Link from "../Link";
 
 export const navBarItems = (
   <>
