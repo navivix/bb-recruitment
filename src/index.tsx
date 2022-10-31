@@ -14,7 +14,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Root } from "./components/layout";
-import { UserPage, SearchPage, RepoPage } from "./pages";
+import { UserPage, SearchPage, RepoPage, ErrorPage } from "./pages";
 
 const httpLink = createHttpLink({
   uri: "https://api.github.com/graphql",
@@ -38,6 +38,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
