@@ -58,6 +58,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/oops",
+    element: <ErrorPage />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(

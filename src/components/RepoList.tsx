@@ -37,7 +37,7 @@ export default function RepoList({
     <>
       <List>
         {names.map((name) => (
-          <RepoListItem name={name} />
+          <RepoListItem key={name} name={name} />
         ))}
       </List>
       <TablePagination

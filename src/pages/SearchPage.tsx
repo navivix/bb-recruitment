@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Grid } from "@mui/material";
 import { RepoList } from "../components";
 import { SearchBar } from "../components";
+import { gql, useLazyQuery } from "@apollo/client";
 
 export default function SearchPage() {
   const [searchString, setSearchString] = useState("");

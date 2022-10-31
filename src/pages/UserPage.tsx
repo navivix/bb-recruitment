@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { Grid, Typography, Paper } from "@mui/material";
 import { UserPageHeader, RepoList } from "../components";
 import { gql, useQuery } from "@apollo/client";
@@ -8,9 +8,14 @@ const getNames = (arr: { node: { name: string } }[]) =>
   arr.map((el) => el.node.name);
 
 const GET_USER_REPOS = gql`
-  query GetUserRepos($login: String!, $first: Int!, $after: String) {
+  query GetUserRepos(
+    $login: String!
+    $first: Int!
+    $after: String
+    $before: String
+  ) {
     user(login: $login) {
-      repositories(first: $first, after: $after) {
+      repositories(first: $first, after: $after, before: $before) {
         totalCount
         edges {
           node {
@@ -27,30 +32,44 @@ export default function UserPage() {
   const { username } = useParams();
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(10);
-  const [cursors, setCursors] = useState<(null | string)[]>([null]);
-  const { loading, error, data } = useQuery(GET_USER_REPOS, {
+  const { loading, error, data, refetch } = useQuery(GET_USER_REPOS, {
     variables: {
       login: username,
-      first: rows,
-      after: cursors[page],
+      first: 10,
+      after: null,
+      before: null,
     },
   });
 
   const handleChangePage = (newPage: number) => {
     const { edges } = data.user.repositories;
-    if (newPage > page && newPage >= cursors.length) {
-      setCursors([...cursors, edges.at(-1).cursor]);
+    if (newPage > page) {
+      refetch({
+        first: rows,
+        after: edges.at(-1).cursor,
+        before: null,
+      });
+    } else {
+      refetch({
+        first: rows,
+        after: null,
+        before: edges.at(0).cursor,
+      });
     }
     setPage(newPage);
   };
 
-  const handleChangeRows = (rows: number) => {
-    setRows(rows);
+  const handleChangeRows = (newRows: number) => {
+    setRows(newRows);
     setPage(0);
-    setCursors([null]);
+    refetch({
+      first: newRows,
+      after: null,
+      before: null,
+    });
   };
 
-  if (error) return null;
+  if (error) return <Navigate to="/oops" />;
 
   return (
     <Grid container direction="column" spacing={2}>

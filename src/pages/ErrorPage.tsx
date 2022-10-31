@@ -15,7 +15,7 @@ export default function ErrorPage() {
       }}
     >
       <Typography variant="h1">
-        {error.status} {error.statusText}
+        {error ? `${error.status} ${error.statusText}` : "Something went wrong"}
       </Typography>
     </Box>
   );
