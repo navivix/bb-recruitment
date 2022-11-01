@@ -1,4 +1,4 @@
-import { TablePagination, List } from "@mui/material";
+import { List } from "@mui/material";
 import RepoListItem from "./RepoListItem";
 import type { RepoEdge } from "../types";
 

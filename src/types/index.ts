@@ -1,3 +1,3 @@
-import { Repo, RepoEdge, RepoWithData } from "./repo";
+import { Repo, RepoEdge, RepoWithData, Commit, CommitEdge } from "./repo";
 
-export type { Repo, RepoEdge, RepoWithData };
+export type { Repo, RepoEdge, RepoWithData, Commit, CommitEdge };

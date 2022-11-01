@@ -1,4 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
+import PaginationHandler from "./PaginationHandler";
+import CommitList from "./CommitList";
+import { Navigate } from "react-router-dom";
 
 const GET_COMMITS = gql`
   query GetCommits(
@@ -19,9 +22,6 @@ const GET_COMMITS = gql`
                 node {
                   oid
                   message
-                  author {
-                    name
-                  }
                 }
               }
             }
@@ -38,7 +38,7 @@ interface CommitLoaderProps {
 }
 
 export default function CommitLoader({ owner, name }: CommitLoaderProps) {
-  const { data, loading, error } = useQuery(GET_COMMITS, {
+  const { data, loading, error, refetch } = useQuery(GET_COMMITS, {
     variables: {
       owner,
       name,
@@ -46,9 +46,20 @@ export default function CommitLoader({ owner, name }: CommitLoaderProps) {
       after: null,
       before: null,
     },
+    notifyOnNetworkStatusChange: true,
   });
+
+  if (error) return <Navigate to="/oops" />;
 
   console.log(data);
 
-  return null;
+  return (
+    <PaginationHandler
+      Component={CommitList}
+      total={data?.repository.defaultBranchRef.target.history.totalCount}
+      edges={data?.repository.defaultBranchRef.target.history.edges}
+      refetch={refetch}
+      loading={loading}
+    />
+  );
 }

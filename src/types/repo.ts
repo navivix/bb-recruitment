@@ -20,3 +20,13 @@ export type RepoWithData = {
   issues: { totalCount: number };
   releases: { totalCount: number };
 };
+
+export type Commit = {
+  oid: string;
+  message: string;
+};
+
+export type CommitEdge = {
+  cursor: string;
+  node: Commit;
+};
