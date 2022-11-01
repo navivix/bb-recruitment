@@ -39,3 +39,12 @@ export type IssueEdge = {
   node: Issue;
   cursor: string;
 };
+
+export type Release = {
+  tagName: string;
+};
+
+export type ReleaseEdge = {
+  node: Release;
+  cursor: string;
+};

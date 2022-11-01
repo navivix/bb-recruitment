@@ -6,6 +6,8 @@ import {
   CommitEdge,
   Issue,
   IssueEdge,
+  Release,
+  ReleaseEdge,
 } from "./repo";
 
 export type {
@@ -16,4 +18,6 @@ export type {
   CommitEdge,
   Issue,
   IssueEdge,
+  Release,
+  ReleaseEdge,
 };
