@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import type { RepoEdge } from "../types";
-import { Typography } from "@mui/material";
+import { Typography, TablePagination } from "@mui/material";
 
-interface PaginationHandler {
+interface PaginationHandlerProps {
   Component: React.ComponentType<any>;
   total: number;
-  edges: RepoEdge[];
+  edges: any[];
   refetch: (arg: any) => void;
   loading: boolean;
 }
@@ -13,13 +12,17 @@ interface PaginationHandler {
 export default function PaginationHandler({
   Component,
   refetch,
-  ...other
-}: PaginationHandler) {
+  total,
+  edges,
+  loading,
+}: PaginationHandlerProps) {
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(10);
-  const { edges, loading } = other;
 
-  const handleChangePage = (newPage: number) => {
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
     if (newPage > page) {
       refetch({
         first: rows,
@@ -36,7 +39,10 @@ export default function PaginationHandler({
     setPage(newPage);
   };
 
-  const handleChangeRows = (newRows: number) => {
+  const handleChangeRows = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const newRows = parseInt(event.target.value, 10);
     setRows(newRows);
     setPage(0);
     refetch({
@@ -50,12 +56,15 @@ export default function PaginationHandler({
     return <Typography variant="body1">Loading...</Typography>;
 
   return (
-    <Component
-      onChangePage={handleChangePage}
-      onChangeRows={handleChangeRows}
-      page={page}
-      rows={rows}
-      {...other}
-    />
+    <>
+      <Component edges={edges} />
+      <TablePagination
+        count={total}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rows}
+        onRowsPerPageChange={handleChangeRows}
+      />
+    </>
   );
 }
