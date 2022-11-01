@@ -1,6 +1,5 @@
 export type Repo = {
-  name: string;
-  owner: string;
+  nameWithOwner: string;
 };
 
 export type RepoEdge = {

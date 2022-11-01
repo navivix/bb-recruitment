@@ -15,7 +15,7 @@ const GET_USER_REPOS = gql`
         totalCount
         edges {
           node {
-            name
+            nameWithOwner
           }
           cursor
         }

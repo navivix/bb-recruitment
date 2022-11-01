@@ -36,8 +36,8 @@ export default function RepoList({
   return (
     <>
       <List>
-        {repos.map((repo) => (
-          <RepoListItem key={repo.name} repo={repo} />
+        {repos.map(({ nameWithOwner }) => (
+          <RepoListItem key={nameWithOwner} name={nameWithOwner} />
         ))}
       </List>
       <TablePagination

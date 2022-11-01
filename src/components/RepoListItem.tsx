@@ -3,14 +3,14 @@ import Link from "./Link";
 import type { Repo } from "../types";
 
 interface RepoListItemProps {
-  repo: Repo;
+  name: string;
 }
 
-export default function RepoListItem({ repo }: RepoListItemProps) {
+export default function RepoListItem({ name }: RepoListItemProps) {
   return (
-    <Link to={`/repository/${repo.owner}/${repo.name}`}>
+    <Link to={`/repository/${name}`}>
       <ListItemButton>
-        <ListItemText primary={repo.name} />
+        <ListItemText primary={name} />
       </ListItemButton>
     </Link>
   );
