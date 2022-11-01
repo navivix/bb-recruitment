@@ -1,19 +1,55 @@
 import { useState } from "react";
-import { Grid } from "@mui/material";
-import { RepoList } from "../components";
+import { Grid, Paper, Typography } from "@mui/material";
+import { RepoPagination } from "../components";
 import { SearchBar } from "../components";
 import { gql, useLazyQuery } from "@apollo/client";
+import { Navigate } from "react-router-dom";
+
+const SEARCH_REPOS = gql`
+  query SearchRepos(
+    $query: String!
+    $first: Int!
+    $after: String
+    $before: String
+  ) {
+    search(
+      query: $query
+      first: $first
+      after: $after
+      before: $before
+      type: REPOSITORY
+    ) {
+      repositoryCount
+      edges {
+        node {
+          ... on Repository {
+            nameWithOwner
+          }
+        }
+        cursor
+      }
+    }
+  }
+`;
 
 export default function SearchPage() {
   const [searchString, setSearchString] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+  const [searchRepos, { data, loading, error, refetch }] = useLazyQuery(
+    SEARCH_REPOS,
+    {
+      notifyOnNetworkStatusChange: true,
+    }
+  );
 
   const handleChange = (val: string) => setSearchString(val);
 
-  const handleSearch = () => null;
+  const handleSearch = () => {
+    setHasSearched(true);
+    searchRepos({ variables: { query: searchString, first: 10 } });
+  };
 
-  const handleChangePage = () => null;
-
-  const handleChangeRows = () => null;
+  if (error) return <Navigate to="/oops" />;
 
   return (
     <Grid container direction="column" spacing={2}>
@@ -24,7 +60,22 @@ export default function SearchPage() {
           onSearch={handleSearch}
         />
       </Grid>
-      <Grid item></Grid>
+      <Grid item>
+        <Paper sx={{ p: 3 }}>
+          {hasSearched ? (
+            <RepoPagination
+              edges={data?.search.edges}
+              total={data?.search.repositoryCount}
+              refetch={refetch}
+              loading={loading}
+            />
+          ) : (
+            <Typography variant="body2">
+              Type your search query and press enter
+            </Typography>
+          )}
+        </Paper>
+      </Grid>
     </Grid>
   );
 }
