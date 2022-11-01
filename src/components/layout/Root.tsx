@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import { Outlet } from "react-router-dom";
+import { DRAWER_WIDTH } from "./constants";
 
 export default function Layout() {
   const [open, setOpen] = React.useState(true);
@@ -27,6 +28,7 @@ export default function Layout() {
           flexGrow: 1,
           height: "100vh",
           overflow: "auto",
+          ml: { xs: 0, sm: `${DRAWER_WIDTH}px` },
         }}
       >
         <Toolbar />
