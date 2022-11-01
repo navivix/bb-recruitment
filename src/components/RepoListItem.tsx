@@ -1,15 +1,16 @@
 import { ListItemButton, ListItemText } from "@mui/material";
 import Link from "./Link";
+import type { Repo } from "../types";
 
 interface RepoListItemProps {
-  name: string;
+  repo: Repo;
 }
 
-export default function RepoListItem({ name }: RepoListItemProps) {
+export default function RepoListItem({ repo }: RepoListItemProps) {
   return (
-    <Link to={`/repository/${name}`}>
+    <Link to={`/repository/${repo.owner}/${repo.name}`}>
       <ListItemButton>
-        <ListItemText primary={name} />
+        <ListItemText primary={repo.name} />
       </ListItemButton>
     </Link>
   );

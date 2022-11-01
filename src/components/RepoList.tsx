@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { TablePagination, Paper, List } from "@mui/material";
+import { TablePagination, List } from "@mui/material";
 import RepoListItem from "./RepoListItem";
+import type { Repo } from "../types";
 
 interface RepoListProps {
-  names: string[];
+  repos: Repo[];
   total: number;
   page: number;
   rows: number;
@@ -12,7 +12,7 @@ interface RepoListProps {
 }
 
 export default function RepoList({
-  names,
+  repos,
   total,
   page,
   rows,
@@ -36,8 +36,8 @@ export default function RepoList({
   return (
     <>
       <List>
-        {names.map((name) => (
-          <RepoListItem key={name} name={name} />
+        {repos.map((repo) => (
+          <RepoListItem key={repo.name} repo={repo} />
         ))}
       </List>
       <TablePagination

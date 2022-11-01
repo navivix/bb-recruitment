@@ -24,16 +24,7 @@ export default function SearchPage() {
           onSearch={handleSearch}
         />
       </Grid>
-      <Grid item>
-        <RepoList
-          names={[]}
-          total={0}
-          rows={0}
-          page={0}
-          onChangePage={handleChangePage}
-          onChangeRows={handleChangeRows}
-        />
-      </Grid>
+      <Grid item></Grid>
     </Grid>
   );
 }
