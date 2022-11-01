@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Typography, Tabs, Tab, Box } from "@mui/material";
+import type { RepoWithData } from "../types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -18,7 +19,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 interface RepoDetailsProps {
-  repo: any;
+  repo: RepoWithData;
 }
 
 export default function RepoDetails({ repo }: RepoDetailsProps) {
@@ -31,16 +32,18 @@ export default function RepoDetails({ repo }: RepoDetailsProps) {
   return (
     <Grid container direction="column" spacing={3}>
       <Grid item>
-        <Typography variant="h4">Name</Typography>
+        <Typography variant="h4">{repo.nameWithOwner}</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="body2">Description</Typography>
+        <Typography variant="body2">{repo.description}</Typography>
       </Grid>
       <Grid item>
         <Tabs value={tab} onChange={handleChange}>
-          <Tab label="Commits 0" />
-          <Tab label="Issues 0" />
-          <Tab label="Releases 0" />
+          <Tab
+            label={`Commits ${repo.defaultBranchRef.target.history.totalCount}`}
+          />
+          <Tab label={`Issues ${repo.issues.totalCount}`} />
+          <Tab label={`Releases ${repo.releases.totalCount}`} />
         </Tabs>
       </Grid>
       <Grid item>
