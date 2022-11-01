@@ -10,11 +10,12 @@ export default function Layout() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
+    console.log(!open);
   };
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Header open={open} toggleDrawer={toggleDrawer} />
+      <Header toggleDrawer={toggleDrawer} />
       <NavBar open={open} toggleDrawer={toggleDrawer} />
       <Box
         component="main"
