@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <UserPage />,
       },
       {
-        path: "repository/:repoName",
+        path: "repository/:owner/:name",
         element: <RepoPage />,
       },
     ],
