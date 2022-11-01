@@ -3,7 +3,7 @@ import RepoList from "./RepoList";
 import Link from "./Link";
 import SearchBar from "./SearchBar";
 import RepoDetails from "./RepoDetails";
-import RepoPagination from "./RepoPagination";
+import PaginationHandler from "./PaginationHandler";
 import CommitLoader from "./CommitLoader";
 
 export {
@@ -12,6 +12,6 @@ export {
   Link,
   SearchBar,
   RepoDetails,
-  RepoPagination,
+  PaginationHandler,
   CommitLoader,
 };

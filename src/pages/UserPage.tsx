@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { Grid, Paper } from "@mui/material";
-import { UserPageHeader, RepoPagination } from "../components";
+import { UserPageHeader, PaginationHandler, RepoList } from "../components";
 import { gql, useQuery } from "@apollo/client";
 
 const GET_USER_REPOS = gql`
@@ -45,11 +45,12 @@ export default function UserPage() {
       </Grid>
       <Grid item>
         <Paper sx={{ p: 3 }}>
-          <RepoPagination
+          <PaginationHandler
             edges={data?.user.repositories.edges}
             total={data?.user.repositories.totalCount}
             refetch={refetch}
             loading={loading}
+            Component={RepoList}
           />
         </Paper>
       </Grid>

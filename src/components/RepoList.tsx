@@ -1,9 +1,11 @@
 import { TablePagination, List } from "@mui/material";
 import RepoListItem from "./RepoListItem";
-import type { Repo } from "../types";
+import type { RepoEdge } from "../types";
+
+const getRepos = (arr: RepoEdge[]) => arr.map((el) => el.node);
 
 interface RepoListProps {
-  repos: Repo[];
+  edges: RepoEdge[];
   total: number;
   page: number;
   rows: number;
@@ -12,13 +14,15 @@ interface RepoListProps {
 }
 
 export default function RepoList({
-  repos,
+  edges,
   total,
   page,
   rows,
   onChangePage,
   onChangeRows,
 }: RepoListProps) {
+  const repos = getRepos(edges);
+
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number

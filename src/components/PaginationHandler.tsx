@@ -1,25 +1,23 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import type { RepoEdge } from "../types";
-import RepoList from "./RepoList";
 import { Typography } from "@mui/material";
 
-const getRepos = (arr: RepoEdge[]) => arr.map((el) => el.node);
-
-interface RepoPaginationProps {
+interface PaginationHandler {
+  Component: React.ComponentType<any>;
   total: number;
   edges: RepoEdge[];
   refetch: (arg: any) => void;
   loading: boolean;
 }
 
-export default function RepoPagination({
-  total,
-  edges,
+export default function PaginationHandler({
+  Component,
   refetch,
-  loading,
-}: RepoPaginationProps) {
+  ...other
+}: PaginationHandler) {
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(10);
+  const { edges, loading } = other;
 
   const handleChangePage = (newPage: number) => {
     if (newPage > page) {
@@ -52,13 +50,12 @@ export default function RepoPagination({
     return <Typography variant="body1">Loading...</Typography>;
 
   return (
-    <RepoList
-      repos={getRepos(edges)}
-      total={total}
-      rows={rows}
-      page={page}
+    <Component
       onChangePage={handleChangePage}
       onChangeRows={handleChangeRows}
+      page={page}
+      rows={rows}
+      {...other}
     />
   );
 }

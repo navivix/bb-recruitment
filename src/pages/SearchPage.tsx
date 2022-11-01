@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Grid, Paper, Typography } from "@mui/material";
-import { RepoPagination } from "../components";
+import { PaginationHandler, RepoList } from "../components";
 import { SearchBar } from "../components";
 import { gql, useLazyQuery } from "@apollo/client";
 import { Navigate } from "react-router-dom";
@@ -63,11 +63,12 @@ export default function SearchPage() {
       <Grid item>
         <Paper sx={{ p: 3 }}>
           {hasSearched ? (
-            <RepoPagination
+            <PaginationHandler
               edges={data?.search.edges}
               total={data?.search.repositoryCount}
               refetch={refetch}
               loading={loading}
+              Component={RepoList}
             />
           ) : (
             <Typography variant="body2">
