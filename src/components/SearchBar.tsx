@@ -19,7 +19,7 @@ export default function SearchBar(props: SearchBarProps) {
   };
 
   const handleKeyPress = (event: any) => {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       props.onSearch();
     }
   };
