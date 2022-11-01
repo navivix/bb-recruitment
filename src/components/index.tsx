@@ -4,6 +4,7 @@ import Link from "./Link";
 import SearchBar from "./SearchBar";
 import RepoDetails from "./RepoDetails";
 import RepoPagination from "./RepoPagination";
+import CommitLoader from "./CommitLoader";
 
 export {
   UserPageHeader,
@@ -12,4 +13,5 @@ export {
   SearchBar,
   RepoDetails,
   RepoPagination,
+  CommitLoader,
 };

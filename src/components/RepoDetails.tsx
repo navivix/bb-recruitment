@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Typography, Tabs, Tab, Box } from "@mui/material";
 import type { RepoWithData } from "../types";
+import { CommitLoader } from "../components";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,9 +21,11 @@ function TabPanel(props: TabPanelProps) {
 
 interface RepoDetailsProps {
   repo: RepoWithData;
+  owner: string;
+  name: string;
 }
 
-export default function RepoDetails({ repo }: RepoDetailsProps) {
+export default function RepoDetails({ repo, owner, name }: RepoDetailsProps) {
   const [tab, setTab] = useState(0);
 
   const handleChange = (event: any, newValue: number) => {
@@ -48,7 +51,7 @@ export default function RepoDetails({ repo }: RepoDetailsProps) {
       </Grid>
       <Grid item>
         <TabPanel value={tab} index={0}>
-          commits
+          <CommitLoader owner={owner} name={name} />
         </TabPanel>
         <TabPanel value={tab} index={1}>
           issues

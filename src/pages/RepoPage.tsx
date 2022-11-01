@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { Paper, Typography } from "@mui/material";
 import { RepoDetails } from "../components";
 import { gql, useQuery } from "@apollo/client";
+import { Navigate } from "react-router-dom";
 
 const GET_REPO = gql`
   query GetRepo($owner: String!, $name: String!) {
@@ -36,12 +37,14 @@ export default function RepoPage() {
     },
   });
 
+  if (error) return <Navigate to="/oops" />;
+
   return (
     <Paper sx={{ p: 3 }}>
       {loading ? (
         <Typography variant="body2">Loading...</Typography>
       ) : (
-        <RepoDetails repo={data.repository} />
+        <RepoDetails repo={data.repository} owner={owner!} name={name!} />
       )}
     </Paper>
   );
