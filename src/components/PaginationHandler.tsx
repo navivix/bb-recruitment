@@ -55,7 +55,7 @@ export default function PaginationHandler({
   if (loading || !edges)
     return <Typography variant="body1">Loading...</Typography>;
 
-  return (
+  return total > 0 ? (
     <>
       <Component edges={edges} />
       <TablePagination
@@ -66,5 +66,7 @@ export default function PaginationHandler({
         onRowsPerPageChange={handleChangeRows}
       />
     </>
+  ) : (
+    <Typography variant="body1">Nothing to show</Typography>
   );
 }

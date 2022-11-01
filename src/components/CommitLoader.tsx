@@ -51,8 +51,6 @@ export default function CommitLoader({ owner, name }: CommitLoaderProps) {
 
   if (error) return <Navigate to="/oops" />;
 
-  console.log(data);
-
   return (
     <PaginationHandler
       Component={CommitList}

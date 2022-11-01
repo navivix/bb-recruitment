@@ -30,3 +30,12 @@ export type CommitEdge = {
   cursor: string;
   node: Commit;
 };
+
+export type Issue = {
+  title: string;
+};
+
+export type IssueEdge = {
+  node: Issue;
+  cursor: string;
+};

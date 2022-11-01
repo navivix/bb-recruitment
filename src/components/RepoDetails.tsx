@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Grid, Typography, Tabs, Tab, Box } from "@mui/material";
 import type { RepoWithData } from "../types";
-import { CommitLoader } from "../components";
+import CommitLoader from "./CommitLoader";
+import IssueLoader from "./IssueLoader";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,7 +55,7 @@ export default function RepoDetails({ repo, owner, name }: RepoDetailsProps) {
           <CommitLoader owner={owner} name={name} />
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          issues
+          <IssueLoader owner={owner} name={name} />
         </TabPanel>
         <TabPanel value={tab} index={2}>
           releases
